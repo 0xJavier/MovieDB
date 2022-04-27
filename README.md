@@ -15,3 +15,7 @@ Main goal of this project was to explore building a collection view using diffab
 - Clone the Repository
 - Get your API Key from https://developers.themoviedb.org/3/
 - Create global constant called API_KEY
+
+## API
+Data pulled from https://www.themoviedb.org
+"This product uses the TMDB API but is not endorsed or certified by TMDB."
