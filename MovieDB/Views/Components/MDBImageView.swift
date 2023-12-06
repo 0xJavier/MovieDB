@@ -7,10 +7,8 @@
 
 import UIKit
 
+// TODO: Add image cache
 class MDBImageView: UIImageView {
-    
-    let cache = NetworkManager.shared.cache
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -29,7 +27,7 @@ class MDBImageView: UIImageView {
     }
     
     func setImage(with movie: Movie, type: ImageType) {
-        Task.init {
+        Task {
             do {
                 image = try await NetworkManager.shared.retrieveMovieImage(from: movie, as: type)
             } catch {
@@ -38,4 +36,3 @@ class MDBImageView: UIImageView {
         }
     }
 }
-

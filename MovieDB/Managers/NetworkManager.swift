@@ -14,19 +14,20 @@ protocol NetworkService {
 
 //MARK: -
 class NetworkManager: NetworkService {
-    
     static let shared = NetworkManager()
-    let cache = NSCache<NSString, UIImage>()
+    
     private let decoder = JSONDecoder()
     
     private let baseMovieURL = "https://api.themoviedb.org/3/movie/"
     private let baseImageURL = "https://image.tmdb.org/t/p/w500"
     
-    private init() {}
+    private init() {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+    }
     
     //MARK: -
     func retrieveMovieCollection(from collection: MovieCollection) async throws -> [Movie] {
-        let endpoint = baseMovieURL + "\(collection.rawValue)?api_key=\(API_KEY)"
+        let endpoint = baseMovieURL + "\(collection.rawValue)?api_key=\(Constants.apiKey)"
         
         guard let url = URL(string: endpoint) else {
             print("LOG: Could not turn generated endpoint to URL: NetworkManager -> retrieveMovieCollection()")
@@ -36,7 +37,7 @@ class NetworkManager: NetworkService {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            print("LOG: Coult not get response from url: NetworkManager -> retrieveMovieCollection()")
+            print("LOG: Could not get response from url: NetworkManager -> retrieveMovieCollection()")
             return []
         }
         

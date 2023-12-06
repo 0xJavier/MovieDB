@@ -7,7 +7,8 @@
 
 import Foundation
 
+// protocol for all collection view cells
 protocol SelfConfigureCell {
-    static var reuseIdentifier: String { get }
+    // Takes a movie and configures the cell's UI
     func configure(with movie: Movie)
 }

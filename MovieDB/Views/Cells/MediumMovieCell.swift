@@ -8,22 +8,22 @@
 import UIKit
 
 class MediumMovieCell: UICollectionViewCell, SelfConfigureCell {
-    static var reuseIdentifier: String = "MediumMovieCell"
     let imageView = MDBImageView(frame: .zero)
-    let titleLabel = UILabel()
+    
+    let titleLabel: UILabel = .build { label in
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .label
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        titleLabel.font = .preferredFont(forTextStyle: .body)
-        titleLabel.textColor = .label
-        
-        let stackview = UIStackView(arrangedSubviews: [imageView, titleLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .vertical
-        stackview.setCustomSpacing(10, after: imageView)
-        contentView.addSubview(stackview)
-        stackview.center(in: contentView)
+        let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.setCustomSpacing(10, after: imageView)
+        contentView.addSubview(stackView)
+        stackView.center(in: contentView)
     }
     
     required init?(coder: NSCoder) {

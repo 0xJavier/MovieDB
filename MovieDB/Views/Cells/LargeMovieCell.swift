@@ -8,8 +8,6 @@
 import UIKit
 
 class LargeMovieCell: UICollectionViewCell, SelfConfigureCell {
-    
-    static var reuseIdentifier: String = "LargeMovieCell"
     private let imageView = MDBImageView(frame: .zero)
     
     override init(frame: CGRect) {

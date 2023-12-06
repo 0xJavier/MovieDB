@@ -9,23 +9,26 @@ import UIKit
 
 class SectionHeader: UICollectionReusableView {
     static let reuseIdentifier = "SectionHeader"
-    let titleLabel = UILabel()
+    
+    let titleLabel: UILabel = .build { label in
+        label.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
+        label.textColor = .label
+    }
+    
+    let stackView: UIStackView = .build { view in
+        view.axis = .vertical
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        titleLabel.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 22, weight: .bold))
-        titleLabel.textColor = .label
-        
-        let stackview = UIStackView(arrangedSubviews: [titleLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .vertical
-        addSubview(stackview)
+        stackView.addArrangedSubview(titleLabel)
+        addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackview.topAnchor.constraint(equalTo: topAnchor),
-            stackview.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackview.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            stackview.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
     

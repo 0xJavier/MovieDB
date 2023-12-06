@@ -8,46 +8,41 @@
 import Foundation
 
 class HomeDataController {
-    var sections = [Section]()
+    var nowPlaying = [Movie]()
+    var upcoming = [Movie]()
+    var topRated = [Movie]()
     
-    //MARK: -
+    //MARK: -    
     func retrieveSections() async {
-        let nowPlayingSection = await retrieveNowPlayingSection()
-        let upComingSection = await retrieveUpComingSection()
-        let topRatedSection = await retrieveTopRatedSection()
-        sections.append(contentsOf: [nowPlayingSection, upComingSection, topRatedSection])
+        nowPlaying = await retrieveNowPlayingSection()
+        upcoming = await retrieveUpComingSection()
+        topRated = await retrieveTopRatedSection()
     }
     
-    private func retrieveNowPlayingSection() async -> Section {
-        var section = Section(title: "Now Playing", type: SectionType.largeTable.rawValue)
+    private func retrieveNowPlayingSection() async -> [Movie] {
         do {
-            let items = try await NetworkManager.shared.retrieveMovieCollection(from: .nowPlaying)
-            section.items = items
+            return try await NetworkManager.shared.retrieveMovieCollection(from: .nowPlaying)
         } catch {
             print("Could not retrieve items for Now Playing Section")
+            return []
         }
-        return section
     }
     
-    private func retrieveUpComingSection() async -> Section {
-        var section = Section(title: "Up Coming", type: SectionType.mediumTable.rawValue)
+    private func retrieveUpComingSection() async -> [Movie] {
         do {
-            let items = try await NetworkManager.shared.retrieveMovieCollection(from: .upcoming)
-            section.items = items
+            return try await NetworkManager.shared.retrieveMovieCollection(from: .upcoming)
         } catch {
             print("Could not retrieve items for Upcoming Section")
+            return []
         }
-        return section
     }
     
-    private func retrieveTopRatedSection() async -> Section {
-        var section = Section(title: "Top Rated", type: SectionType.mediumTable.rawValue)
+    private func retrieveTopRatedSection() async -> [Movie] {
         do {
-            let items = try await NetworkManager.shared.retrieveMovieCollection(from: .topRated)
-            section.items = items
+            return try await NetworkManager.shared.retrieveMovieCollection(from: .topRated)
         } catch {
             print("Could not retrieve items for Top Rated Section")
+            return []
         }
-        return section
     }
 }
