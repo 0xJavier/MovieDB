@@ -75,7 +75,6 @@ extension HomeViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), 
                                                       heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 20, trailing: 12)
                 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(185), 
                                                        heightDimension: .absolute(276))
@@ -88,7 +87,6 @@ extension HomeViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), 
                                                       heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 20, trailing: 12)
                 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(246), 
                                                        heightDimension: .absolute(200))
@@ -156,15 +154,20 @@ extension HomeViewController {
         }
     }
     
-    func createLargeCellRegistration() -> UICollectionView.CellRegistration<LargeMovieCell, Movie> {
-        return UICollectionView.CellRegistration<LargeMovieCell, Movie> { (cell, indexPath, movie) in
-            cell.configure(with: movie)
+    func createLargeCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, Movie> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, Movie> { (cell, indexPath, movie) in
+            cell.contentConfiguration = UIHostingConfiguration {
+                LargeMovieView(movie: movie)
+            }
         }
     }
     
-    func createMediumCellRegistration() -> UICollectionView.CellRegistration<MediumMovieCell, Movie> {
-        return UICollectionView.CellRegistration<MediumMovieCell, Movie> { (cell, indexPath, movie) in
-            cell.configure(with: movie)
+    func createMediumCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, Movie> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, Movie> { (cell, indexPath, movie) in
+            cell.contentConfiguration = UIHostingConfiguration {
+                MediumMovieView(movie: movie)
+            }
+            // TODO: Can mess with margins here with .margins
         }
     }
 }

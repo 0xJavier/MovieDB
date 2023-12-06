@@ -19,7 +19,9 @@ class NetworkManager: NetworkService {
     private let decoder = JSONDecoder()
     
     private let baseMovieURL = "https://api.themoviedb.org/3/movie/"
-    private let baseImageURL = "https://image.tmdb.org/t/p/w500"
+    private var baseImageURL: String {
+        Constants.baseImageURL
+    }
     
     private init() {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
