@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: Add image cache
 class MDBImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)

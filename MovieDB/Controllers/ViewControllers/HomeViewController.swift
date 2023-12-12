@@ -167,7 +167,7 @@ extension HomeViewController {
             cell.contentConfiguration = UIHostingConfiguration {
                 MediumMovieView(movie: movie)
             }
-            // TODO: Can mess with margins here with .margins
+            // can mess with margins here with .margins
         }
     }
 }
