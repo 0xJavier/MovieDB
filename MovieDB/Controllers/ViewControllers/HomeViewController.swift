@@ -33,22 +33,23 @@ class HomeViewController: UIViewController {
     }
     
     private func configureSnapshot() {
-        let sections = Section.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
-        snapshot.appendSections(sections)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        if !dataController.nowPlaying.isEmpty {
+            var nowPlaying = NSDiffableDataSourceSectionSnapshot<Movie>()
+            nowPlaying.append(dataController.nowPlaying)
+            dataSource.apply(nowPlaying, to: .nowPlaying, animatingDifferences: true)
+        }
         
-        var nowPlaying = NSDiffableDataSourceSectionSnapshot<Movie>()
-        nowPlaying.append(dataController.nowPlaying)
-        dataSource.apply(nowPlaying, to: .nowPlaying, animatingDifferences: true)
+        if !dataController.upcoming.isEmpty {
+            var upcoming = NSDiffableDataSourceSectionSnapshot<Movie>()
+            upcoming.append(dataController.upcoming)
+            dataSource.apply(upcoming, to: .upComing, animatingDifferences: true)
+        }
         
-        var upcoming = NSDiffableDataSourceSectionSnapshot<Movie>()
-        upcoming.append(dataController.upcoming)
-        dataSource.apply(upcoming, to: .upComing, animatingDifferences: true)
-        
-        var topRated = NSDiffableDataSourceSectionSnapshot<Movie>()
-        topRated.append(dataController.topRated)
-        dataSource.apply(topRated, to: .topRated, animatingDifferences: true)
+        if !dataController.topRated.isEmpty {
+            var topRated = NSDiffableDataSourceSectionSnapshot<Movie>()
+            topRated.append(dataController.topRated)
+            dataSource.apply(topRated, to: .topRated, animatingDifferences: true)
+        }
     }
 }
 
