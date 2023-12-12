@@ -180,7 +180,8 @@ extension HomeViewController: UICollectionViewDelegate {
             return
         }
         
-        let detailVC = DetailViewController(movie: selectedMovie)
-        navigationController?.pushViewController(detailVC, animated: true)
+        let detailView = UIHostingController(rootView: MovieDetailView(movie: selectedMovie))
+        detailView.title = selectedMovie.title
+        navigationController?.pushViewController(detailView, animated: true)
     }
 }
